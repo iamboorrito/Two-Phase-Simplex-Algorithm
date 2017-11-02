@@ -29,10 +29,10 @@ while simplex_exit > 0
     % Check if any of the objective coefficients will be negative
     pi_t = CARRY(1, 2:m+1);
     
-    %tableau = [ CARRY(2:m+1, 2:m+1)*A, CARRY(2:m+1, 2:m+1), CARRY(2:m+1, 2:m+1)*b; (c + pi_t*A), pi_t, z_opt]
-    %basis
+    tableau = [ CARRY(2:m+1, 2:m+1)*A, CARRY(2:m+1, 2:m+1), CARRY(2:m+1, 2:m+1)*b; (c + pi_t*A), pi_t, z_opt]
+    basis
     
-    %pause
+    pause
     
     % Generate the c_j values until you find a negative one
     for j = 1:n
@@ -45,8 +45,8 @@ while simplex_exit > 0
         
         % This is c_j* in the book, its cB * B^(-1) * A, but
         % cB * B^(-1) is already computed as pi_t
-        %j
-        c_j_new = c(j) + pi_t*A(:, j);
+        j
+        c_j_new = c(j) + pi_t*A(:, j)
         
         if abs( c_j_new ) < 10^(-8)
             c_j_new = 0

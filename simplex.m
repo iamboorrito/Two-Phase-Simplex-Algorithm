@@ -11,9 +11,11 @@ function [ x_opt, z_opt ] = simplex(z0, c, A, b)
 w = -sum(A, 1);
 
 MSG = sprintf('%s', 'BEGIN PHASE ONE')
-[ x_opt, z_opt, CARRY, basis ] = rsimplex(-sum(b), w, A, b, []);
+[ x_opt, z_opt, CARRY, basis ] = rsimplex(sum(b), w, A, b, []);
 
-if abs(z_opt) > 10^(-14)
+
+ABS_ZOPT = abs(z_opt)
+if abs(z_opt) > 10^(-8)
     %b_opt = NaN;
     z_opt = NaN;
     return
@@ -55,9 +57,13 @@ c_star = c-c(basis)*A_star;
 b_star = CARRY(2:m+1, 1);
 z0_star = z0 - c(basis)*b_star;
 
+%[A_star b; c_star z0_star]
+
 %pause
 
-[x_opt, z_opt, ~] = rsimplex(z0_star, c_star, A_star, b_star, basis);
+[x_opt, z_opt, ~] = rsimplex(-z0_star, c_star, A_star, b_star, basis);
+
+z_opt = -z_opt;
 
 end
 

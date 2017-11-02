@@ -19,7 +19,6 @@ for i = 1:m
         factor = -col(i);
         CARRY(i, :) = CARRY(i, :) + factor*CARRY(piv_row, :);
         col(i) = 0;
-        % pause
     end
 end
 
