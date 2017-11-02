@@ -23,7 +23,7 @@ while simplex_exit > 0
     % Compute current soln
     x_opt = zeros(n+m, 1);
     x_opt(basis) = CARRY(2:m+1, 1);
-    z_opt = CARRY(1, 1);
+    z_opt = -CARRY(1, 1);
     %disp(z_opt)
       
     % Check if any of the objective coefficients will be negative
@@ -117,7 +117,7 @@ while simplex_exit > 0
     % No negative coeffs found, soln must be optimal
     if c_j_new >= 0
         x_opt = x_opt(1:n);
-        z_opt = CARRY(1, 1);
+        z_opt = -CARRY(1, 1);
         return
     end
     
