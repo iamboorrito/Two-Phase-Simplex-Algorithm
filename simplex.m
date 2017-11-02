@@ -1,11 +1,25 @@
-function [ x_opt, z_opt ] = simplex(z0, c, A, b)
+function [ x_opt, z_opt ] = simplex(z0, c, A, b, ineqFlag)
 %Solves the linear program given by
 %
 %        minimize z = c*x + z0
-%        subject to Ax=b.
+%        subject to Ax (<= / = / >=) b.
+%       ineqFlag:=      -1   0    1
 %
 % where c is a row vector.
+%
+%
 [m, n] = size(A);
+
+if ineqFlag == -1
+    [ x_opt, z_opt, ~, ~] = rsimplex(z0,[c, zeros(1, m)], [A, eye(m)], b, n+1:n+m);
+    x_opt = x_opt(1:n);
+    return;
+end
+
+if ineqFlag == 1
+    A = [A, -eye(m)];
+    c = [c, zeros(1, m)];
+end
 
 % New objective
 w = -sum(A, 1);
