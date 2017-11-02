@@ -20,29 +20,7 @@ algorithm (rsimplex.m) to find the solution.
 
 Ex. z0 = 0, c = [-2 -1 0 0], A = [2 1 1 0 ; 1 3 0 1], and b = [10 ; 15]
 
->> [x, z] = simplex(0, c, A, b)
+Enter [x, z] = simplex(0, c, A, b)
 
-MSG =
-
-BEGIN PHASE ONE
-
-
-MSG =
-
-FEASIBLE SOLN FOUND, BEGIN PHASE TWO
-
-
-x =
-
-     3
-     4
-     0
-     0
-
-
-z =
-
-   -10
-
-
+Then the solution is given as x = [3 4 0 0]' with z = -10.
 
