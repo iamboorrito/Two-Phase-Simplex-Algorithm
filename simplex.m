@@ -19,6 +19,7 @@ if abs(z_opt) > 10^(-14)
     return
 end
 
+BFS_TRANSPOSE = x_opt'
 MSG = sprintf('%s', 'FEASIBLE SOLN FOUND, BEGIN PHASE TWO')
 
 A_star = CARRY(2:m+1, 2:m+1)*A;

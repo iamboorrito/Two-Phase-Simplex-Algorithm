@@ -23,7 +23,7 @@ simplex_exit = 1;
         % Compute current soln
         x_opt = zeros(n+m, 1);
         x_opt(basis) = CARRY(2:m+1, 1);
-        z_opt = -CARRY(1, 1);
+        z_opt = -CARRY(1, 1)
 
         % Check if any of the objective coefficients will be negative
         pi_t = CARRY(1, 2:m+1);
