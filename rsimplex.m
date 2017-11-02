@@ -12,7 +12,7 @@ end
 %tableau = [z0, zeros(1, m), c; b B A];
 
 %
-CARRY = [-z0, zeros(1,m); b B];
+CARRY = [z0, zeros(1,m); b B];
 %
 %CARRY = tableau(1:m+1, 1:m+1);
 
@@ -24,12 +24,12 @@ while simplex_exit > 0
     x_opt = zeros(n+m, 1);
     x_opt(basis) = CARRY(2:m+1, 1);
     z_opt = -CARRY(1, 1);
-    %disp(z_opt)
+    disp(-z_opt)
       
     % Check if any of the objective coefficients will be negative
     pi_t = CARRY(1, 2:m+1);
     
-    %tableau = [ CARRY(2:m+1, 2:m+1)*A, CARRY(2:m+1, 2:m+1), CARRY(2:m+1, 2:m+1)*b; (c + pi_t*A), pi_t, z_opt]
+    %tableau = [ CARRY(2:m+1, 2:m+1)*A, CARRY(2:m+1, 2:m+1), CARRY(2:m+1, 2:m+1)*b; (c + pi_t*A), pi_t, -z_opt]
     %basis
     
     %pause
@@ -48,8 +48,9 @@ while simplex_exit > 0
         %j
         c_j_new = c(j) + pi_t*A(:, j);
         
-        if abs( c_j_new ) < 10^(-8)
-            c_j_new = 0
+        % Round towards to zero
+        if abs( c_j_new ) < 10^(-14)
+            c_j_new = 0;
         end
         
         %pause

@@ -25,11 +25,14 @@ end
 w = -sum(A, 1);
 
 MSG = sprintf('%s', 'BEGIN PHASE ONE')
-[ x_opt, z_opt, CARRY, basis ] = rsimplex(sum(b), w, A, b, []);
+[ x_opt, z_opt, CARRY, basis ] = rsimplex(-sum(b), w, A, b, []);
 
+%disp(basis)
+%pause
 
 ABS_ZOPT = abs(z_opt)
-if abs(z_opt) > 10^(-8)
+
+if abs(z_opt) > 10^(-13)
     %b_opt = NaN;
     z_opt = NaN;
     return
@@ -43,7 +46,7 @@ A_star = CARRY(2:m+1, 2:m+1)*A;
 %Remove redundant rows, found where basis(i) > n
 rows_to_remove = sum(basis > n);
 rows_to_keep = m-rows_to_remove;
-rows = zeros(1, rows_to_keep);
+rows = zeros(1, rows_to_keep-1);
 
 if rows_to_remove > 0
     k = 1;
@@ -58,7 +61,8 @@ if rows_to_remove > 0
         
     end
     
-    %rows
+    rows
+    pause
     A_star = A_star(rows, :);
     basis = basis(rows);
     CARRY = CARRY([1, 1+rows], 1:m);
@@ -75,9 +79,9 @@ z0_star = z0 - c(basis)*b_star;
 
 %pause
 
-[x_opt, z_opt, ~] = rsimplex(-z0_star, c_star, A_star, b_star, basis);
-
-z_opt = -z_opt;
+[x_opt, z_opt, ~] = rsimplex(z0_star, c_star, A_star, b_star, basis);
+%[x_opt, z_opt, ~] = rsimplex(z0_star, c, A, b, basis);
+%z_opt = -z_opt;
 
 end
 
