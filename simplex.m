@@ -36,12 +36,13 @@ MSG = sprintf('%s', 'BEGIN PHASE ONE')
 ABS_ZOPT = abs(z_opt)
 
 if abs(z_opt) > 10^(-13)
-    %b_opt = NaN;
+    x_opt = NaN;
     z_opt = NaN;
+    MSG = sprintf('%s', 'Infeasible solution')
     return
 end
 
-BFS_TRANSPOSE = x_opt'
+BFS = x_opt
 MSG = sprintf('%s', 'FEASIBLE SOLN FOUND, BEGIN PHASE TWO')
 
 A_star = CARRY(2:m+1, 2:m+1)*A;
@@ -81,7 +82,7 @@ z0_star = z0 - c(basis)*b_star;
 
 [ A_star b_star; c_star z0_star]
 
-%pause
+pause
 
 [x_opt, z_opt, ~] = rsimplex(z0_star, c_star, A_star, b_star, basis);
 %[x_opt, z_opt, ~] = rsimplex(z0_star, c, A, b, basis);
