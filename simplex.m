@@ -8,6 +8,8 @@ function [ x_opt, z_opt ] = simplex(z0, c, A, b, ineqFlag)
 % where c is a row vector.
 %
 %
+
+z0 = -z0;
 [m, n] = size(A);
 
 if ineqFlag == -1
@@ -25,6 +27,7 @@ end
 w = -sum(A, 1);
 
 MSG = sprintf('%s', 'BEGIN PHASE ONE')
+[ A, b; w, -sum(b)]
 [ x_opt, z_opt, CARRY, basis ] = rsimplex(-sum(b), w, A, b, []);
 
 %disp(basis)
@@ -61,9 +64,10 @@ if rows_to_remove > 0
         
     end
     
-    rows
-    pause
+    %rows
+    %pause
     A_star = A_star(rows, :);
+    
     basis = basis(rows);
     CARRY = CARRY([1, 1+rows], 1:m);
     
@@ -75,7 +79,7 @@ c_star = c-c(basis)*A_star;
 b_star = CARRY(2:m+1, 1);
 z0_star = z0 - c(basis)*b_star;
 
-%[A_star b; c_star z0_star]
+[ A_star b_star; c_star z0_star]
 
 %pause
 

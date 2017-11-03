@@ -12,6 +12,7 @@ end
 %tableau = [z0, zeros(1, m), c; b B A];
 
 %
+% z0
 CARRY = [z0, zeros(1,m); b B];
 %
 %CARRY = tableau(1:m+1, 1:m+1);
@@ -24,7 +25,7 @@ while simplex_exit > 0
     x_opt = zeros(n+m, 1);
     x_opt(basis) = CARRY(2:m+1, 1);
     z_opt = -CARRY(1, 1);
-    disp(-z_opt)
+    disp(z_opt)
       
     % Check if any of the objective coefficients will be negative
     pi_t = CARRY(1, 2:m+1);
@@ -65,8 +66,9 @@ while simplex_exit > 0
         
     end
     
-    % Min w = 0 but artificial vars remain, but we don't have a
-    % negative obj. fn coefficient, so use pivot op to remove them
+    % Min w = 0 and artificial vars remain, but we don't have a
+    % negative obj. fn coefficient, so use pivot op to remove them.
+    % Possible TODO: use partial pivoting
     if c_j_new > 0 && abs(z_opt) < 10^(-8) && max(basis) > n
         
         % Get the artificial variable's row from basis
