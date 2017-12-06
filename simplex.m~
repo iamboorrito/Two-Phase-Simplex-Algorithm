@@ -13,11 +13,11 @@ z0 = -z0;
 
 if ineqFlag == -1
     [ x_opt, z_opt, ~, ~] = rsimplex(z0,[c, zeros(1, m)], [A, eye(m)], b, n+1:n+m);
-    x_opt = x_opt(1:n);
+    %x_opt = x_opt(1:n);
     return;
 else
 if ineqFlag == 1
-    A = [A, -eye(m)];
+    A = [A, -eye(m)]
     w = [-sum(A, 1) zeros(1,m)];
     c = [c, zeros(1, m)];
     n = n+m;
@@ -26,18 +26,18 @@ else
     w = [-sum(A, 1), zeros(1,m)];
 end
 
-%MSG = sprintf('%s', 'BEGIN PHASE ONE')
+MSG = sprintf('%s', 'BEGIN PHASE ONE')
 
-%[[A eye(m)], b; w, -sum(b)]
+[[A eye(m)], b; w, -sum(b)]
 
-%pause
+pause
 
 [ x_opt, z_opt, CARRY, basis ] = rsimplex(-sum(b), w, [A, eye(m)], b, []);
 
-%disp(basis)
-%pause
+disp(basis)
+pause
 
-%ABS_ZOPT = abs(z_opt)
+ABS_ZOPT = abs(z_opt)
 
 if abs(z_opt) > 10^(-10)
     x_opt = NaN;
@@ -46,8 +46,8 @@ if abs(z_opt) > 10^(-10)
     return
 end
 
-%BFS = x_opt
-%MSG = sprintf('%s', 'FEASIBLE SOLN FOUND, BEGIN PHASE TWO')
+BFS = x_opt
+MSG = sprintf('%s', 'FEASIBLE SOLN FOUND, BEGIN PHASE TWO')
 
 A_star = CARRY(2:m+1, 2:m+1)*A;
 
@@ -95,11 +95,6 @@ z0_star = z0 - c(basis)*b_star;
 %pause
 
 [x_opt, z_opt, ~] = rsimplex(z0_star, c_star, A_star, b_star, basis);
-
-% Only give values for original variables
-if ineqFlag == 1
-    x_opt = x_opt(1:n-m);
-end
 
 end
 
