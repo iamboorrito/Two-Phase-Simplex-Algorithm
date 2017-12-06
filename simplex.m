@@ -97,7 +97,7 @@ z0_star = z0 - c(basis)*b_star;
 [x_opt, z_opt, ~] = rsimplex(z0_star, c_star, A_star, b_star, basis);
 
 % Only give values for original variables
-if ineqFlag == 1
+if ineqFlag == 1 && abs(z_opt) < inf
     x_opt = x_opt(1:n-m);
 end
 

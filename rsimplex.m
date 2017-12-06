@@ -30,6 +30,7 @@ while simplex_exit > 0
     % Check if any of the objective coefficients will be negative
     pi_t = CARRY(1, 2:m+1);
     
+    c_j_new = 0;
     %tableau = [ CARRY(2:m+1, 2:m+1)*A, CARRY(2:m+1, 2:m+1), CARRY(2:m+1, 2:m+1)*b; (c + pi_t*A), pi_t, -z_opt]
     %basis
     
