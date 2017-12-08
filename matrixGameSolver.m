@@ -11,7 +11,7 @@ b = ones(n, 1);
 
 [x, w] = simplex(0, c, A', b, 1);
 [y, ~] = simplex(0, -c, A, b, -1);
-
+ 
 w = 1/w;
 x = w*x;
 y = w*y;
